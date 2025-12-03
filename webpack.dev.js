@@ -14,6 +14,7 @@ export default merge(common('development'), {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.ASSET_PATH': JSON.stringify(''),
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
   ],
   devServer: {

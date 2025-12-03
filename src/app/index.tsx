@@ -6,9 +6,10 @@ import { AppRoutes } from '@app/routes';
 import '@app/app.css';
 
 const App: React.FunctionComponent = () => {
-  // For production builds, use ASSET_PATH (injected by webpack DefinePlugin)
-  // For development, use empty string (no basename needed)
-  const basename = process.env.NODE_ENV === 'production' && process.env.ASSET_PATH
+  // Get basename from environment variable (set by webpack DefinePlugin)
+  // In development: empty string (no basename)
+  // In production: '/updates' (for GitHub Pages)
+  const basename = process.env.ASSET_PATH 
     ? process.env.ASSET_PATH.replace(/\/$/, '') // Remove trailing slash
     : '';
   
