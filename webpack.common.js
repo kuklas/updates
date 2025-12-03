@@ -6,7 +6,9 @@ import CopyPlugin from 'copy-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
 const BG_IMAGES_DIRNAME = 'bgimages';
-const ASSET_PATH = process.env.ASSET_PATH || '/updates/';
+// For production builds, use /updates/ for GitHub Pages
+// For development, this will be overridden in webpack.dev.js
+const ASSET_PATH = process.env.ASSET_PATH || (process.env.NODE_ENV === 'production' ? '/updates/' : '/');
 
 export default (env) => {
   return {
@@ -105,18 +107,7 @@ export default (env) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve('./src', 'index.html'),
-        templateParameters: (compilation, assets, options) => {
-          return {
-            compilation: compilation,
-            webpack: compilation.getStats().toJson(),
-            webpackConfig: compilation.options,
-            htmlWebpackPlugin: {
-              files: assets,
-              options: options
-            },
-            baseHref: ASSET_PATH,
-          };
-        },
+        base: ASSET_PATH,
       }),
       new Dotenv({
         systemvars: true,
