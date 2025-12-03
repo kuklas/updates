@@ -114,6 +114,7 @@ export default (env) => {
         patterns: [
           { from: './src/favicon.png', to: 'images' },
           { from: './public/.nojekyll', to: '.nojekyll' },
+          { from: './public/404.html', to: '404.html' },
         ],
       }),
     ],
