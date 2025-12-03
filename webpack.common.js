@@ -105,6 +105,18 @@ export default (env) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve('./src', 'index.html'),
+        templateParameters: (compilation, assets, options) => {
+          return {
+            compilation: compilation,
+            webpack: compilation.getStats().toJson(),
+            webpackConfig: compilation.options,
+            htmlWebpackPlugin: {
+              files: assets,
+              options: options
+            },
+            baseHref: ASSET_PATH,
+          };
+        },
       }),
       new Dotenv({
         systemvars: true,

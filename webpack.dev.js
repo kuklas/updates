@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import path from 'path';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import common from './webpack.common.js';
 import { stylePaths } from './stylePaths.js';
@@ -10,6 +11,11 @@ const PORT = process.env.PORT || '9000';
 export default merge(common('development'), {
   mode: 'development',
   devtool: 'eval-source-map',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.ASSET_PATH': JSON.stringify(''),
+    }),
+  ],
   devServer: {
     host: HOST,
     port: PORT,

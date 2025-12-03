@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import { merge } from 'webpack-merge';
+import webpack from 'webpack';
 import common from './webpack.common.js';
 import { stylePaths } from './stylePaths.js';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -24,6 +25,9 @@ export default merge(common('production'), {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[name].bundle.css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.ASSET_PATH': JSON.stringify(process.env.ASSET_PATH || '/updates'),
     }),
   ],
   module: {

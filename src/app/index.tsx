@@ -5,12 +5,20 @@ import { AppLayout } from '@app/AppLayout/AppLayout';
 import { AppRoutes } from '@app/routes';
 import '@app/app.css';
 
-const App: React.FunctionComponent = () => (
-  <Router basename={process.env.ASSET_PATH || '/updates'}>
-    <AppLayout>
-      <AppRoutes />
-    </AppLayout>
-  </Router>
-);
+const App: React.FunctionComponent = () => {
+  // For production builds, use ASSET_PATH (injected by webpack DefinePlugin)
+  // For development, use empty string (no basename needed)
+  const basename = process.env.NODE_ENV === 'production' && process.env.ASSET_PATH
+    ? process.env.ASSET_PATH.replace(/\/$/, '') // Remove trailing slash
+    : '';
+  
+  return (
+    <Router basename={basename}>
+      <AppLayout>
+        <AppRoutes />
+      </AppLayout>
+    </Router>
+  );
+};
 
 export default App;
