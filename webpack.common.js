@@ -105,9 +105,7 @@ export default (env) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve('./src', 'index.html'),
-        // Only set base for production builds (GitHub Pages)
-        // For development, base will be '/' (default)
-        ...(process.env.NODE_ENV === 'production' ? { base: ASSET_PATH } : {}),
+        base: ASSET_PATH,
       }),
       new Dotenv({
         systemvars: true,
